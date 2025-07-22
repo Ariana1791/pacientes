@@ -1,7 +1,5 @@
 package com.mx.pacientes.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +12,7 @@ public class PacienteServiceImpl implements PacienteInterfaceService {
     @Autowired
     PacienteInterfaceRepository repository;
 
-
-     @Override
+    @Override
     public Paciente crearPaciente(Paciente paciente) {
         Paciente result = null;
         try {
@@ -28,10 +25,10 @@ public class PacienteServiceImpl implements PacienteInterfaceService {
     }
 
     @Override
-    public List<Paciente> buscarPaciente() {
-        List<Paciente> resultado = null;
+    public Paciente buscarPaciente(Paciente paciente) {
+        Paciente resultado = null;
         try {
-            resultado = repository.findAll();
+            resultado = repository.findByTelefono(paciente.getTelefono());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -74,5 +71,27 @@ public class PacienteServiceImpl implements PacienteInterfaceService {
             }
         }
 
+    }
+
+    @Override
+    public Paciente buscarTelefono(long telefono) {
+        Paciente recuperado = null;
+        try {
+            recuperado = repository.findByTelefono(telefono);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return recuperado;
+    }
+
+    @Override
+    public boolean buscarPorId(int id) {
+        boolean recuperado = false;
+        try {
+            recuperado = repository.existsById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return recuperado;
     }
 }

@@ -6,4 +6,5 @@ import com.mx.pacientes.model.Paciente;
 
 public interface PacienteInterfaceRepository extends JpaRepository<Paciente, Integer>{
 
+     Paciente findByTelefono(long  telefono);
 }
